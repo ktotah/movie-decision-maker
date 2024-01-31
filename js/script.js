@@ -54,3 +54,14 @@ function getMovieInfo(movieTitle) {
   })
   .catch(error => console.error('Error fetching movie info:', error));
 }
+
+// Function to search for a movie when the button is clicked
+function searchMovie() {
+  const movieTitle = document.getElementById('movieTitle').value;
+  
+  // Only fetch and display results if a movie title is provided
+  if (movieTitle.trim() !== '') {
+    getMovieInfo(movieTitle);
+  }
+  }
+  
