@@ -38,3 +38,19 @@ function getMovieInfo(movieTitle) {
          <p>Synopsis: ${synopsis}</p>
          <p>actors: ${actors}</p>
        `;
+
+       // Display poster if available
+       if (posterUrl !== 'N/A') {
+        posterContainer.innerHTML = `
+          <img src="${posterUrl}" alt="${movieTitle} Poster">
+        `;
+      } else {
+        posterContainer.innerHTML = '<p>No poster available.</p>';
+      }
+    } else {
+      movieInfoContainer.innerHTML = `<p>${data.Error}</p>`;
+      posterContainer.innerHTML = ''; // Clear poster container if there's an error
+    }
+  })
+  .catch(error => console.error('Error fetching movie info:', error));
+}
