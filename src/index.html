@@ -1,32 +1,70 @@
-<!-- Main HTML file -->
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Add your CSS framework link here -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Decision Maker</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
 
-<!-- Add styles link here -->
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#watched">Watched Movies</a></li>
+        </ul>
+    </nav>
 
-<!-- Navigation Bar -->
+    <!-- Home/Search Page -->
+    <section id="home">
+        <h1>Movie Decision Maker</h1>
+        <!-- Search Panel -->
+        <div id="search-panel">
+            <!-- Add your filters (genre, duration, rating) here -->
+            <label for="genre">Genre:</label>
+            <select id="genre">
+                <!-- Add genre options dynamically through JavaScript -->
+            </select>
 
-<!-- Home/Search Page -->
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" placeholder="Enter duration">
 
-<!-- Search Panel -->
+            <label for="rating">Rating:</label>
+            <input type="text" id="rating" placeholder="Enter rating">
 
-<!-- Add filters (genre, duration, rating) here -->
+            <button onclick="searchMovies()">Search</button>
+        </div>
 
-<!-- Add genre options dynamically through JavaScript -->
+        <!-- Movie Results -->
+        <div id="movie-results">
+            <!-- Movie cards/grid view will be dynamically added here -->
+        </div>
+    </section>
 
-<!-- Movie Results -->
+    <!-- Movie Detail Page -->
+    <section id="movie-detail">
+        <!-- Detailed information about the selected movie will be displayed here -->
+        <h2>Movie Title</h2>
+        <p>IMDb Score: <span id="imdb-score">9.0</span></p>
+        <p>Synopsis: Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/trailer-id" frameborder="0" allowfullscreen></iframe>
+        <button onclick="markAsWatched()">Mark as Watched</button>
+    </section>
 
-<!-- Movie cards/grid view will be dynamically added here -->
+    <!-- Watched Movies Page -->
+    <section id="watched">
+        <!-- Watched movies will be displayed here -->
+        <h2>Watched Movies</h2>
+        <ul id="watched-movies">
+            <!-- Watched movie items will be dynamically added here -->
+        </ul>
+    </section>
 
-<!-- Movie Detail Page -->
-
-<!-- Detailed information about the selected movie will be displayed here -->
-
-<!-- Watched Movies Page -->
-
-<!-- Watched movies will be displayed here -->
-
-<!-- Watched movie items will be dynamically added here -->
-
-<!-- Add JavaScript scripts here -->
-
+    <!-- Add JavaScript scripts here -->
+    
+    
+  </body>
+  
+  </html>
