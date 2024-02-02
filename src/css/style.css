@@ -18,7 +18,7 @@ body {
 
 /* Navigation Bar styling */
 nav {
-    background-color: #333; /* Dark background color */
+    background-color: #0d3fa9; /* Blue background color */
     padding: 10px;
 }
 
@@ -34,12 +34,12 @@ li {
 
 a {
     text-decoration: none;
-    color: #fff; /* White text color */
+    color: #ffa903; /* Yellow text color */
     font-weight: bold;
 }
 
 a:hover {
-    color: #ffdb58; /* Yellow on hover */
+    color: #ffa903; /* Yellow on hover */
 }
 
 /* Home/Search Page styling */
@@ -49,7 +49,8 @@ a:hover {
 }
 
 h1 {
-    color: #0c1a40; /* Dark Blue text color */
+    color: #0d3fa9; /* Dark Blue text color */
+    padding: 50px;
 }
 
 #search-panel {
@@ -58,7 +59,7 @@ h1 {
 
 label {
     margin-right: 10px;
-    color: #0c1a40; /* Dark Blue text color */
+    color: #0d3fa9; /* Dark Blue text color */
 }
 
 select,
@@ -68,7 +69,7 @@ input {
 }
 
 button {
-    background-color: #0c1a40; /* Dark Blue */
+    background-color: #ffa903; /* Yellow */
     color: #fff; /* White text color */
     padding: 10px 20px;
     border: none;
@@ -78,7 +79,7 @@ button {
 }
 
 button:hover {
-    background-color: #1f3067; /* Slightly Darker Blue on Hover */
+    background-color: #0d3fa9 ; /* Blue on Hover */
 }
 
 /* Movie Results styling */
@@ -96,12 +97,12 @@ button:hover {
 }
 
 #movie-detail h2 {
-    color: #0c1a40; /* Dark Blue text color */
+    color: #0d3fa9; /* Blue text color */
 }
 
 #movie-detail p {
     margin-bottom: 20px;
-    color: #0c1a40; /* Dark Blue text color */
+    color: #0d3fa9; /* Blue text color */
 }
 
 iframe {
@@ -118,7 +119,7 @@ iframe {
 }
 
 #watched h2 {
-    color: #0c1a40; /* Dark Blue text color */
+    color: #0d3fa9; /*Blue text color */
 }
 
 #watched-movies {
@@ -128,5 +129,5 @@ iframe {
 
 #watched-movies li {
     margin-bottom: 10px;
-    color: #0c1a40; /* Dark Blue text color */
+    color: #ffa903; /* Yellow text color */
 }
