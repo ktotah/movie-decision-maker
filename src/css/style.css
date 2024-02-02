@@ -48,6 +48,7 @@ a:hover {
     color: #ffa903; /* Yellow on hover */
 }
 
+
 /* Home/Search Page styling */
 #home {
     text-align: center;
@@ -55,9 +56,13 @@ a:hover {
 }
 
 h1 {
-    color: #ffa903; /* Dark Blue text color */
+    color: #ffa903; /* yellow text color */
     padding: 50px;
     font-size: 4em;
+}
+
+h2 {
+
 }
 
 #search-panel {
@@ -69,7 +74,7 @@ h1 {
 
 label {
     margin-right: 10px;
-    color: #ffa903; /* Dark Blue text color */
+    color: #ffa903; /* yellow text color */
     font-size: 30px;
 }
 
