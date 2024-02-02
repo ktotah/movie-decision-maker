@@ -13,13 +13,19 @@ li {
 
 /* Basic styling for the body */
 body {
-    font-family: 'ITC Machine', sans-serif;
+  font-family: 'ITC Machine', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #0d3fa9;
 }
+
+
 
 /* Navigation Bar styling */
 nav {
     background-color: #0d3fa9; /* Blue background color */
     padding: 10px;
+    font-size: 24px;
 }
 
 ul {
@@ -49,23 +55,31 @@ a:hover {
 }
 
 h1 {
-    color: #0d3fa9; /* Dark Blue text color */
+    color: #ffa903; /* Dark Blue text color */
     padding: 50px;
+    font-size: 4em;
 }
 
 #search-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
 label {
     margin-right: 10px;
-    color: #0d3fa9; /* Dark Blue text color */
+    color: #ffa903; /* Dark Blue text color */
+    font-size: 30px;
 }
 
 select,
 input {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-right: 60px;
     padding: 8px;
+    flex: 1;
 }
 
 button {
@@ -97,12 +111,12 @@ button:hover {
 }
 
 #movie-detail h2 {
-    color: #0d3fa9; /* Blue text color */
+    color: #ffa903; /* Blue text color */
 }
 
 #movie-detail p {
     margin-bottom: 20px;
-    color: #0d3fa9; /* Blue text color */
+    color: #ffa903; /* Blue text color */
 }
 
 iframe {
@@ -119,7 +133,7 @@ iframe {
 }
 
 #watched h2 {
-    color: #0d3fa9; /*Blue text color */
+    color:#ffa903; /*Blue text color */
 }
 
 #watched-movies {
