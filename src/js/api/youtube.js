@@ -120,4 +120,8 @@ function getMovieInfo(movieTitle) {
             trailerContainer.innerHTML = `
               <h2>Trailer</h2>
               <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
- 
+              `;
+// if can't get information from a movie tittle, it will display a message where the user will be informed about the video is no avaliable              
+            } else {
+              trailerContainer.innerHTML = `<p>No trailer available.</p>`;
+            }
