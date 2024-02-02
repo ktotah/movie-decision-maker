@@ -58,3 +58,8 @@ function getMovieInfo(movieTitle) {
 function searchMovie() {
   const movieTitle = document.getElementById('movieTitle').value;
   
+    // Only fetch and display results if a movie title is provided
+    if (movieTitle.trim() !== '') {
+      getMovieInfo(movieTitle);
+    }
+    }
