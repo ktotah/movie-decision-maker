@@ -9,3 +9,31 @@ function getMovieInfo(movieTitle) {
     t: movieTitle
   };
  
+     // Construct the URL with query parameters
+ const omdbUrl = new URL(apiUrl2);
+ omdbUrl.search = new URLSearchParams(omdbParams);
+
+ fetch(omdbUrl)
+   .then(response => response.json())
+   .then(data => {
+     const movieInfoContainer = document.getElementById('movieInfo');
+     const posterContainer = document.getElementById('poster');
+
+     if (data.Response === 'True') {
+       const movieTitle = data.Title;
+       const movieYear = data.Year;
+       const movieRating = data.imdbRating;
+       const genre = data.Genre;
+       const runtime = data.Runtime;
+       const synopsis = data.Plot;
+       const posterUrl = data.Poster;
+       const actors =data.Actors;     
+       movieInfoContainer.innerHTML = `
+         <p>Title: ${movieTitle}</p>
+         <p>Year: ${movieYear}</p>
+         <p>IMDb Rating: ${movieRating}</p>
+         <p>Genre: ${genre}</p>
+         <p>Runtime: ${runtime}</p>
+         <p>Synopsis: ${synopsis}</p>
+         <p>actors: ${actors}</p>
+       `;
