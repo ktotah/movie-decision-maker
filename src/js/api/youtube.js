@@ -125,3 +125,15 @@ function getMovieInfo(movieTitle) {
             } else {
               trailerContainer.innerHTML = `<p>No trailer available.</p>`;
             }
+
+                
+            // Display YouTube videos related to the movie
+            displayVideos(movieTitle);
+          } else {
+            movieInfoContainer.innerHTML = `<p>${data.Error}</p>`;
+            trailerContainer.innerHTML = ''; // Clear trailer container if there's an error
+          }
+        })
+        .catch(error => console.error('Error fetching movie info:', error));
+    }
+    
