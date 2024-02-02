@@ -111,3 +111,13 @@ function getMovieInfo(movieTitle) {
             <p>Year: ${movieYear}</p>
             <p>IMDb Rating: ${movieRating}</p>
           `;
+
+            
+          if (trailerUrl && trailerUrl.includes('youtube.com/watch?v=')) {
+
+            // Extract video ID from YouTube URL
+            const videoId = trailerUrl.split('v=')[1];
+            trailerContainer.innerHTML = `
+              <h2>Trailer</h2>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+ 
