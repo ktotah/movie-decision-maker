@@ -1,4 +1,5 @@
-// Functions to interact with the OMDB API
+const apiKey = 'AIzaSyDcOM0ne4VtAftRHqaOBMEWPGQ45UBT498';
+const apiUrl = 'https://www.googleapis.com/youtube/v3/search';
 const apiUrl2 = 'http://www.omdbapi.com/';
 const apiKey2 = '402e4178';
 
@@ -8,8 +9,8 @@ function getMovieInfo(movieTitle) {
     apikey: apiKey2,
     t: movieTitle
   };
- 
-     // Construct the URL with query parameters
+
+   // Construct the URL with query parameters
  const omdbUrl = new URL(apiUrl2);
  omdbUrl.search = new URLSearchParams(omdbParams);
 
@@ -54,12 +55,13 @@ function getMovieInfo(movieTitle) {
   .catch(error => console.error('Error fetching movie info:', error));
 }
 
-  // Function to search for a movie when the button is clicked
+// Function to search for a movie when the button is clicked
 function searchMovie() {
   const movieTitle = document.getElementById('movieTitle').value;
   
-    // Only fetch and display results if a movie title is provided
-    if (movieTitle.trim() !== '') {
-      getMovieInfo(movieTitle);
-    }
-    }
+  // Only fetch and display results if a movie title is provided
+  if (movieTitle.trim() !== '') {
+    getMovieInfo(movieTitle);
+  }
+  }
+  
