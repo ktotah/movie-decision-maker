@@ -1,5 +1,5 @@
 // script.js
-// This script will set up the event listener for the generate button on the index.html page
+// This script will set up the event listener for the buttons on the index.html page
 
 // Ensure the DOM is fully loaded before attaching event listeners
 document.addEventListener('DOMContentLoaded', () => {
