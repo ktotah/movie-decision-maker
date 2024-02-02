@@ -4,6 +4,7 @@ body,
 h1,
 h2,
 h3,
+h4,
 p,
 ul,
 li {
@@ -62,20 +63,49 @@ h1 {
 }
 
 h2 {
+    color: #ffa903; /* yellow text color */
+    font-size: 2em;
+    padding: 20px
+}
 
+h3 {
+    color: #ffa903; /* yellow text color */
+    font-size: 1.5em;
+    padding: 20px
 }
 
 #search-panel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 30px;
 }
+
+#dropdown-menus {
+    display: flex;
+    max-width: 400px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+}
+
+#genreFilter, #runtimeFilter, #ratingFilter {
+    width: 200px; 
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+#excludeWatched {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
 
 label {
     margin-right: 10px;
     color: #ffa903; /* yellow text color */
-    font-size: 30px;
+    font-size: 20px;
 }
 
 select,
@@ -95,6 +125,8 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 30px;
+    font-size: 20px;
 }
 
 button:hover {
