@@ -171,7 +171,7 @@ function updateUI(movies) {
   resultsContainer.innerHTML = '';
 
   if (movies.length === 0) {
-      resultsContainer.innerHTML = 'No movies match your criteria.';
+      resultsContainer.innerHTML = 'No movies match your current criteria... Please alter your search and try again.';
       return;
   }
 

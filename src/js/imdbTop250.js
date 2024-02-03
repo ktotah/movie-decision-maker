@@ -1,7 +1,10 @@
 /**
  * imdbTop250.js
  * 
- * This file contains a manually curated array of movie titles from IMDb's Top 250 list.
+ * This file contains a manually curated array of movie titles from IMDb's Top 250 list
+ * (with top250MovieTitles[0] = "Shawshank Redemption" being the top rated movie on IMDb
+ * and top250MobieTitles[249] = "Aladdin" being the 250th top rated movie on IMDb).
+ * 
  * The OMDb API, which we are using for fetching movie details, restricts searches to specific movie titles
  * or IMDb ID parameters. While OMDb has access to a wide range of movie data, it does not offer a direct
  * endpoint to fetch a list of movies based on rankings or categories, such as IMDb's Top 250.
