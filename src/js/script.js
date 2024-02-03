@@ -72,4 +72,12 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
         // Check if the movie rating meets the criteria
         const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
         
- 
+        // Check for watched status if excludeWatched is enabled
+        const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
+
+        // Return true if the movie meets all specified criteria
+        return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria && isNotWatched;
+    });
+    // Return the filtered movies
+    return filteredMovies;
+}
