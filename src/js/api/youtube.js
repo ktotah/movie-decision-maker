@@ -32,29 +32,35 @@ function displayVideos(movieTitle) {
   youtubeUrl.search = new URLSearchParams(youtubeParams);
 
   fetch(youtubeUrl)
-    .then(response => response.json())
-    .then(data => {
-      const videosContainer = document.getElementById('videos-container');
-      videosContainer.innerHTML = ''; // Clear previous results
+  .then(response => response.json())
+  .then(data => {
+    const videosContainer = document.getElementById('videos-container');
+    videosContainer.innerHTML = ''; // Clear previous results
 
-
-      if (data.items) {
-        data.items.forEach(item => {
-          const videoTitle = item.snippet.title;
-          const videoId = item.id.videoId;
+    if (data.items && data.items.length > 0) {
+      // Valid items found, display the videos
+      data.items.forEach(item => {
+        const videoTitle = item.snippet.title;
+        const videoId = item.id.videoId;
 
         const videoElement = document.createElement('div');
         videoElement.innerHTML = `
           <h3>${videoTitle}</h3>
-          <iframe width="360" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
         `;
 
         videosContainer.appendChild(videoElement);
       });
     } else {
-      console.error('No items found in the YouTube response.');
+      console.error('No valid items found in the YouTube response. Trying alternative search...');
+
+      // Attempt to fetch another video using an alternative search query
+      const alternativeSearchQuery = movieTitle + ' official trailer';
+      console.log('Trying alternative search query:', alternativeSearchQuery);
+      displayVideos(alternativeSearchQuery);
     }
   })
+  .catch(error => console.error('Error fetching YouTube videos:', error));
 }
 
 // Function to search for a movie when the button is clicked
