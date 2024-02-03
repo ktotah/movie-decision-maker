@@ -5,18 +5,17 @@ const apiUrl = 'https://www.googleapis.com/youtube/v3/search';
 
 window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Example setTimeout with optimized code
-    setTimeout(() => {
-      // ... optimized code
-    }, 50); // 50 milliseconds
-
-    // Function to handle scroll events
-    function handleScroll() {
-      // Your scroll event handling code goes here
-    }
-    
-    // Added passive event listener to a scroll-blocking event
-    window.addEventListener('scroll', handleScroll, { passive: true });
+function handleTitleClick(movie) {
+  // Fetch YouTube video details based on the movie title
+  fetchYouTubeVideo(movie.Title)
+      .then(videoDetails => {
+          // Display YouTube videos using the YouTube API script
+          searchMovie(movie.Title);
+      })
+      .catch(error => {
+          console.error('Error fetching YouTube video details:', error);
+      });
+}
 
 // Function to display YouTube videos
 function displayVideos(movieTitle) {
@@ -38,20 +37,24 @@ function displayVideos(movieTitle) {
       const videosContainer = document.getElementById('videos-container');
       videosContainer.innerHTML = ''; // Clear previous results
 
-      data.items.forEach(item => {
-        const videoTitle = item.snippet.title;
-        const videoId = item.id.videoId;
+
+      if (data.items) {
+        data.items.forEach(item => {
+          const videoTitle = item.snippet.title;
+          const videoId = item.id.videoId;
 
         const videoElement = document.createElement('div');
         videoElement.innerHTML = `
           <h3>${videoTitle}</h3>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+          <iframe width="360" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
         `;
 
         videosContainer.appendChild(videoElement);
       });
-    })
-    .catch(error => console.error('Error fetching YouTube videos:', error));
+    } else {
+      console.error('No items found in the YouTube response.');
+    }
+  })
 }
 
 // Function to search for a movie when the button is clicked
