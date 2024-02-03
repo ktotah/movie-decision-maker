@@ -32,7 +32,8 @@ nav {
 ul {
     list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 li {
@@ -45,8 +46,15 @@ nav a {
     font-weight: bold;
 }
 
-a:hover {
-    color: #ffa903; /* Yellow on hover */
+nav a:hover {
+    color: white; /* white on hover */
+    text-decoration: underline; /* underline on hover */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+nav a:active {
+    color: #f00; /* red "click" color */
 }
 
 
@@ -58,7 +66,7 @@ a:hover {
 
 h1 {
     color: #ffa903; /* yellow text color */
-    padding: 50px;
+    padding: 5px 50px 50px 50px;
     font-size: 4em;
 }
 
@@ -116,11 +124,22 @@ input {
     background-color: #ffa903;
     line-height: 1.5;
 }
-
-#results-container a{
+ 
+#results-container a {
     text-decoration: none;
     color: #000000; /* black text color */
     font-weight: bold;
+}
+
+#results-container a:hover{
+    color: #0d3fa9; /* color changes on hover to blue */
+    text-decoration: underline; /* underline shows on hover */ 
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#results-container a:active{
+    color: #f00; /* "click" color */
 }
 
 /* Styling the scrollbar track */
@@ -217,7 +236,11 @@ iframe {
 }
 
 
-/* NEED TO ADD MEDIA QUERIES */
+
+/* MEDIA QUERIES - responsive design adjustments */
+/* featuring adjustments for specific breakpoints that were determined via testing various viewpoints*/
+
+/* Responsive design in respect to page HEIGHT */
 @media (max-width: 848px)  {
     h1 {
         font-size: 3.6em;
@@ -312,6 +335,10 @@ iframe {
 }
 
 @media (max-width: 499px) {
+    #home {
+        padding: 20px;
+    }
+
     h1 {
         font-size: 2.2em;
     }
@@ -342,7 +369,7 @@ iframe {
     }    
 }
 
-
+/* Responsive design in respect to page HEIGHT */
 @media (max-height: 844px) {
     .buttons {
         position: relative;
