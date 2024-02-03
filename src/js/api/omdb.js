@@ -34,11 +34,16 @@ async function populateGenresDropdown() {
 
         // Append genres to dropdown menu in HTML
         const genreDropdown = document.getElementById('genreFilter');
+
+        // Clear existing options in the dropdown
+        genreDropdown.innerHTML = '';
+
         genres.forEach(genre => {
             const option = document.createElement('option');
             option.value = genre;
             option.textContent = genre;
             genreDropdown.appendChild(option);
+
         });
     } catch (error) {
         console.error(`Error populating genres dropdown:`, error);
