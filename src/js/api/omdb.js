@@ -7,9 +7,9 @@ async function fetchMovieDetails(title) {
         const response = await fetch(url);
         const movieDetails = await response.json();
         return movieDetails;
-    } catch (error) {
+      } catch (error) {
         console.error(`Error fetching movie details for ${title}:`, error);
-        return null; // Return null to handle errors gracefully
+        throw error; // Rethrow the error to propagate it
     }
 }
 
@@ -113,7 +113,8 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
       const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
       const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
       const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
-      
+              const meetsYearCriteria = year === 'all' || (movie.Year && movie.Year === year);
+
       // Check for watched status
       const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
 
@@ -125,8 +126,8 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 }
 
 // Function to select a group of movies based on criteria
-async function searchBtn(genre, runtime, rating, excludeWatched) {
-    const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
+async function searchBtn(genre, runtime, rating, excludeWatched,year) {
+    const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched,year);
    // If no movies match the criteria, log a message and return null
    if (filteredMovies.length === 0) {
     console.log("No movies match your criteria.");
@@ -206,7 +207,21 @@ function updateUI(movies) {
   // Display each movie title in the results container
   movies.forEach(movie => {
       const movieElement = document.createElement('div');
-      movieElement.textContent = movie.Title; // Assuming the movie object has a "Title" property
-      resultsContainer.appendChild(movieElement);
-  });
+      // Wrap the title in an anchor element
+      const titleLink = document.createElement('a');
+      titleLink.href = '#'; // You can set this to '#' or a placeholder link
+      titleLink.textContent = movie.Title;
+
+      // Add click event listener to the anchor
+      titleLink.addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent the default link behavior
+          handleTitleClick(movie);
+      });
+
+      // Append the anchor to the movie element
+        movieElement.appendChild(titleLink);
+
+        // Append the movie element to the results container
+        resultsContainer.appendChild(movieElement);
+    });
 }

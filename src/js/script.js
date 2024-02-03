@@ -1,6 +1,70 @@
 // script.js
 // This script will set up the event listener for the buttons on the index.html page
+// Modify updateClickableUI function
+function updateClickableUI(movies) {
+    const resultsContainer = document.getElementById('results-container');
 
+    // Check if the results container is found
+    if (!resultsContainer) {
+        console.error("Results container element not found.");
+        return;
+    }
+
+    // Clear existing content in the container
+    resultsContainer.innerHTML = '';
+
+    // Check if there are no movies to display
+    if (movies.length === 0) {
+        resultsContainer.innerHTML = 'No movies match your criteria.';
+        return;
+    }
+
+    // Loop through each movie and create clickable titles with play buttons
+    movies.forEach(movie => {
+        const movieElement = document.createElement('div');
+
+        // Create a clickable title element
+        const titleElement = document.createElement('span');
+        titleElement.textContent = movie.Title;
+        titleElement.classList.add('clickable-title');
+
+        // Add click event listener to the clickable title
+        titleElement.addEventListener('click', function () {
+            handleTitleClick(movie);
+        });
+
+        // Create a play button
+        const videosContainer = document.getElementById('videos-container');
+videosContainer.innerHTML = ''; // Clear previous results
+        playButton.textContent = 'Play';
+        playButton.classList.add('play-btn');
+
+        // Add click event listener to the play button
+        playButton.addEventListener('click', function () {
+            handlePlayClick(movie);
+        });
+
+        // Append title and play button to the movie element
+        movieElement.appendChild(titleElement);
+        movieElement.appendChild(playButton);
+
+        // Append the movie element to the results container
+        resultsContainer.appendChild(movieElement);
+    });
+}
+
+// Modify handleTitleClick function
+function handleTitleClick(movie) {
+    // Fetch YouTube video details based on the movie title
+    displayVideos(movie.Title)
+        .then(videoDetails => {
+            // Display YouTube videos using the YouTube API script
+            displayVideos(movie.Title);
+        })
+        .catch(error => {
+            console.error('Error fetching YouTube video details:', error);
+        });
+} 
 document.addEventListener('DOMContentLoaded', () => {
     populateGenresDropdown();
     analyzeMovies();
@@ -8,6 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Get the "Search" button by its ID
     const searchBtn = document.getElementById('search-btn');
+searchBtn.addEventListener('click', async function() {
+    // Your search button logic
+});
     // Get the "Surprise Me!" button by its ID
     const surpriseBtn = document.getElementById('surprise-Btn');
 
@@ -38,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateClickableUI([selectedMovie]);
         }
     });
-
+});
 
 
 // Function to handle searches or surprise selections based on user input
