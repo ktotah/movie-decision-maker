@@ -58,3 +58,18 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
     // Log the filtering criteria and all movies for debugging purposes
     console.log('Filter Criteria:', { genre, maxRuntime, rating, excludeWatched });
     console.log('All Movies:', allMovies);
+
+
+    //criteria
+    const filteredMovies = allMovies.filter(movie => {
+        // Process movie runtime and check against runtime criteria
+        const movieRuntime = processRuntime(movie.Runtime);
+        const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
+        
+        // Check if the movie genre meets the specified genre criteria
+        const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
+        
+        // Check if the movie rating meets the criteria
+        const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
+        
+ 
