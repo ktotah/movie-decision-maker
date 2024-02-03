@@ -81,3 +81,30 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
     // Return the filtered movies
     return filteredMovies;
 }
+
+
+//function to select a random movie based on specified criteria
+async function surpriseMe(genre, runtime, rating, excludeWatched) {
+    
+    // Filter movies based on criteria
+    const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
+    
+    // Log the surprise criteria
+    console.log('Surprise Me Criteria:', { genre, runtime, rating, excludeWatched });
+
+    // If no movies match the criteria, log a message and return null
+    if (filteredMovies.length === 0) {
+        console.log("No movies match your criteria.");
+        return null;
+    }
+
+    // Select a random movie from the filtered list
+    const randomIndex = Math.floor(Math.random() * filteredMovies.length);
+    const selectedMovie = filteredMovies[randomIndex];
+
+    // Log the selected movie
+    console.log('Selected Movie:', selectedMovie);
+
+    // Update the UI with the selected surprise movie
+    updateUI([selectedMovie]);
+}
