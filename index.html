@@ -24,14 +24,14 @@
         <!-- Main text on the home page -->
         <div id="home-text">
             <h1>Movie Decision Maker</h1>
-            <h2>Not sure what to watch?<br>Let us decide which of IMDb's top 250 movies you should watch!</h2>
+            <h2>Not sure what to watch?<br>Let us help you find one of IMDb's top 250 movies!</h2>
             <h3>Please input your search criteria or enjoy a random selection.</h3>
         </div>
         
         <!-- Filters / Movie Criteria -->
         <!-- Search Panel -->
         <div id="search-panel">
-            <div dropdown-menus>
+            <div id="dropdown-menus">
                 <!-- Genre Filter Drop-Down -->
                 <select id="genreFilter">
                     <option value="all">All Genres</option>
@@ -56,22 +56,21 @@
             <!-- Exclude Watched Checkbox -->
             <div>
                 <!-- Other elements... -->
-                <label for="excludeWatched">Exclude Watched:</label>
+                <label for="excludeWatched">Exclude Watched Movies:</label>
                 <input type="checkbox" id="excludeWatched" name="excludeWatched">
-
             </div>
+
+            <!-- Results container -->
+            <div id="results-container"></div>
+
+            <!-- Search Button -->
             <button id="search-btn">Find A Movie</button>
             <button id="surprise-Btn">Surprise Me</button>
-            <div id="results-container"></div>
-            <div id="videos-container"></div>
-            <!-- Search Button -->
-            
-            
-            
-        </div>
-        
-    </main>
 
+            <!-- Videos Container -->
+            <div id="videos-container"></div>
+        </div>
+    </main>
     <!-- ADD OTHER JAVASCRIPT FILES HERE!!! -->
 
     <!-- JavaScript files -->

@@ -32,21 +32,29 @@ nav {
 ul {
     list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 li {
     margin: 0 20px;
 }
 
-a {
+nav a {
     text-decoration: none;
     color: #ffa903; /* Yellow text color */
     font-weight: bold;
 }
 
-a:hover {
-    color: #ffa903; /* Yellow on hover */
+nav a:hover {
+    color: white; /* white on hover */
+    text-decoration: underline; /* underline on hover */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+nav a:active {
+    color: #f00; /* red "click" color */
 }
 
 
@@ -58,7 +66,7 @@ a:hover {
 
 h1 {
     color: #ffa903; /* yellow text color */
-    padding: 50px;
+    padding: 5px 50px 50px 50px;
     font-size: 4em;
 }
 
@@ -78,14 +86,6 @@ h3 {
     margin-top: 30px;
 }
 
-#dropdown-menus {
-    display: flex;
-    max-width: 400px;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    
-}
-
 #genreFilter, #runtimeFilter, #ratingFilter {
     width: 200px; 
     font-size: 16px;
@@ -98,8 +98,8 @@ h3 {
 #excludeWatched {
     margin-right: 10px;
     cursor: pointer;
+    margin-bottom: 25px;
 }
-
 
 
 label {
@@ -117,6 +117,58 @@ input {
     flex: 1;
 }
 
+#results-container {
+    position: relative;
+    max-height: 148px;
+    overflow-y: auto;
+    background-color: #ffa903;
+    line-height: 1.5;
+}
+ 
+#results-container a {
+    text-decoration: none;
+    color: #000000; /* black text color */
+    font-weight: bold;
+}
+
+#results-container a:hover{
+    color: #0d3fa9; /* color changes on hover to blue */
+    text-decoration: underline; /* underline shows on hover */ 
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#results-container a:active{
+    color: #f00; /* "click" color */
+}
+
+/* Styling the scrollbar track */
+#results-container::-webkit-scrollbar {
+  width: 12px; /* Adjust the width of the scrollbar */
+  background-color: #f5f5f5; /* The track color */
+}
+
+/* Styling the scrollbar thumb */
+#results-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* The thumb color */
+  border-radius: 6px; /* Optional: if you want rounded corners */
+  border: 3px solid #f5f5f5; /* Optional: if you want a border around the thumb */
+}
+
+/* Styling buttons container */
+.buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 20px;
+    margin-top: 0;
+    width: 100%;
+    background-color: #0d3fa9;
+    text-align: center;
+    z-index: 1000; /* Ensure it's on top of the other page elements */
+}
+
+/* Styling for individual buttons */
 button {
     background-color: #ffa903; /* Yellow */
     color: #fff; /* White text color */
@@ -181,4 +233,154 @@ iframe {
 #watched-movies li {
     margin-bottom: 10px;
     color: #ffa903; /* Yellow text color */
+}
+
+
+
+/* MEDIA QUERIES - responsive design adjustments */
+/* featuring adjustments for specific breakpoints that were determined via testing various viewpoints*/
+
+/* Responsive design in respect to page HEIGHT */
+@media (max-width: 848px)  {
+    h1 {
+        font-size: 3.6em;
+        padding: 35px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    #results-container {
+        max-height: 190px;
+    }
+}
+
+@media (max-width: 751px)  {
+    h1 {
+        font-size: 3.2em;
+        padding: 35px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    #genreFilter, #runtimeFilter, #ratingFilter {
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 185px;
+    }
+   
+} 
+
+
+@media (max-width: 684px) {
+    h1 {
+        font-size: 3em;
+        padding: 25px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        padding: 15px;
+    }
+
+    h3 {
+        padding: 0;
+    }
+
+    #dropdown-menus {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 631px) {
+    h1 {
+        font-size: 2.8em;
+        padding: 17px;
+    }
+
+    #search-panel {
+        margin-top: 17px;
+    }
+
+    #excludeWatched {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 549px) {
+    h1 {
+        font-size: 2.3em;
+    }
+
+    #search-panel {
+        margin-top: 30px;
+    }
+
+    #excludeWatched {
+        margin-bottom: 23px;
+    }
+}
+
+@media (max-width: 499px) {
+    #home {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    h2 {
+        font-size: 1.1em
+    }
+
+    #results-container {
+        font-size: 14px;
+        line-height: 1.7;
+    }    
+
+    label {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 376px) {
+    a {
+        font-size: 0.8em;
+    }
+
+    #results-container {
+        font-size: 13px;
+        line-height: 1.7;
+        max-height: 160px;
+    }    
+}
+
+/* Responsive design in respect to page HEIGHT */
+@media (max-height: 844px) {
+    .buttons {
+        position: relative;
+        padding-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    button {
+        padding: 15px;
+        margin-top: 15px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
 }
