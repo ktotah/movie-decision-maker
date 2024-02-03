@@ -1,3 +1,4 @@
+
 // script.js
 // This script will set up the event listener for the buttons on the index.html page
 // Modify updateClickableUI function
