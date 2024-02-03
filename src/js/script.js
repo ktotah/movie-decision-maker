@@ -1,3 +1,4 @@
+
 // script.js
 // This script will set up the event listener for the buttons on the index.html page
 // Modify updateClickableUI function
@@ -189,16 +190,4 @@ async function handleSurpriseMe() {
 
     // Call the surpriseMe function to fetch, filter, and select a movie
     await surpriseMe('', '', '', excludeWatched);
-}
-
-// Function to check the overflow of the results container to determine results container background color
-function checkOverflow() {
-  var element = document.querySelector('#results-container');
-  if (element.scrollHeight > element.clientHeight) {
-    // Content is overflowing, add a class that changes the background
-    element.classList.add('overflowing');
-  } else {
-    // Content is not overflowing, remove the class
-    element.classList.remove('overflowing');
-  }
 }

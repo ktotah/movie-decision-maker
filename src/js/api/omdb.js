@@ -9,7 +9,7 @@ async function fetchMovieDetails(title) {
         return movieDetails;
       } catch (error) {
         console.error(`Error fetching movie details for ${title}:`, error);
-        throw error; // Rethrow the error to propagate it
+        throw error; 
     }
 }
 
@@ -22,27 +22,37 @@ async function fetchAllMovieDetails() {
 
 // Analyze movie details and extract genres and append them to the genre dropdown
 async function populateGenresDropdown() {
-    try {
-        const movies = await fetchAllMovieDetails();
-        let genres = new Set();
+  try {
+      const movies = await fetchAllMovieDetails();
+      let genres = new Set();
 
-        movies.forEach(movie => {
-            if (movie && movie.Genre && movie.Genre !== 'N/A') {
-                movie.Genre.split(', ').forEach(genre => genres.add(genre));
-            }
-        });
+      movies.forEach(movie => {
+          if (movie && movie.Genre && movie.Genre !== 'N/A') {
+              movie.Genre.split(', ').forEach(genre => genres.add(genre));
+          }
+      });
 
-        const genreDropdown = document.getElementById('genreFilter');
-        genreDropdown.innerHTML = '';
-        genres.forEach(genre => {
-            const option = document.createElement('option');
-            option.value = genre;
-            option.textContent = genre;
-            genreDropdown.appendChild(option);
-        });
-    } catch (error) {
-        console.error(`Error populating genres dropdown:`, error);
-    }
+      const genreDropdown = document.getElementById('genreFilter');
+      genreDropdown.innerHTML = '';
+
+      // Add an "All Genres" option
+      const allGenresOption = document.createElement('option');
+      allGenresOption.value = 'all';
+      allGenresOption.textContent = 'All Genres';
+      genreDropdown.appendChild(allGenresOption);
+
+      genres.forEach(genre => {
+          const option = document.createElement('option');
+          option.value = genre;
+          option.textContent = genre;
+          genreDropdown.appendChild(option);
+      });
+
+      // Set "All Genres" as the default selected value
+      genreDropdown.value = 'all';
+  } catch (error) {
+      console.error(`Error populating genres dropdown:`, error);
+  }
 }
 
 // Call populatedGenresDropdown once all necessary DOM content has loaded
