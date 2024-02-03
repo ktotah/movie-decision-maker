@@ -15,6 +15,7 @@ async function fetchMovieDetails(title) {
 
 // Fetch details for all Top 250 movies
 async function fetchAllMovieDetails() {
+  // Use fetchMovieDetails correctly with async/await inside map
     const movieDetailsPromises = top250MovieTitles.map(async (title) => await fetchMovieDetails(title));
     return Promise.all(movieDetailsPromises);
 }
@@ -33,7 +34,6 @@ async function populateGenresDropdown() {
 
         const genreDropdown = document.getElementById('genreFilter');
         genreDropdown.innerHTML = '';
-
         genres.forEach(genre => {
             const option = document.createElement('option');
             option.value = genre;
@@ -53,14 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to process runtime data
 function processRuntime(runtimeString) {
-    const runtimeNumbers = runtimeString.match(/\d+/);
-    if (runtimeNumbers) {
-        const runtime = parseInt(runtimeNumbers[0]);
-        return runtime;
-    } else {
-        return null;
-    }
+  // Use a regular expression to match only the numbers in the runtime string
+  const runtimeNumbers = runtimeString.match(/\d+/);
+
+  // Check if the match was successful
+  if (runtimeNumbers) {
+      // Convert the matched string (first element of the array) to a number
+      const runtime = parseInt(runtimeNumbers[0]);
+      return runtime;
+  } else {
+      // If no numbers were found, return a default value or handle as needed
+      return null; // or another value if that makes more sense....
+  }
 }
+
 
 // Analyze movie details to extract runtime, genres, and ratings
 async function analyzeMovies() {
@@ -81,16 +87,19 @@ async function analyzeMovies() {
             }
         });
 
-        const minRuntime = Math.min(...runtimes);
-        const maxRuntime = Math.max(...runtimes);
-        console.log(`Runtime ranges: ${minRuntime} - ${maxRuntime} minutes`);
+// Calculate runtime range and log it -- to detemine what the static dropdrown menu critera for runtime should reasonably be
+const minRuntime = Math.min(...runtimes);
+const maxRuntime = Math.max(...runtimes);
+console.log(`Runtime ranges: ${minRuntime} - ${maxRuntime} minutes`);
 
-        const ratingsArray = Array.from(ratings);
-        console.log('Ratings:', ratingsArray);
 
-    } catch (error) {
-        console.error(`Error fetching or analyzing movie data: ${error}`);
-    }
+// Convert the ratings set to an array and log it -- to determine what the static dropdown menu critera for genre should reasonably be
+const ratingsArray = Array.from(ratings);
+console.log('Ratings:', ratingsArray);
+
+} catch (error) {
+console.error(`Error fetching or analyzing movie data: ${error}`);
+}
 }
 
 // Placeholder for filtering logic based on genres, runtime, rating, and watched status
@@ -115,7 +124,7 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
   return filteredMovies;
 }
 
-// Function to select a random movie from the filtered list and navigate to its details page
+// Function to select a group of movies based on criteria
 async function searchBtn(genre, runtime, rating, excludeWatched) {
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
     if (filteredMovies.length === 0) {
