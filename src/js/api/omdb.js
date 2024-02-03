@@ -127,10 +127,10 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 // Function to select a group of movies based on criteria
 async function searchBtn(genre, runtime, rating, excludeWatched) {
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
- // If no movies match the criteria, log a message and return null
- if (filteredMovies.length === 0) {
-  console.log("No movies match your criteria.");
-  return null;
+   // If no movies match the criteria, log a message and return null
+   if (filteredMovies.length === 0) {
+    console.log("No movies match your criteria.");
+    return null;
 }
 
 // Select a random movie from the filtered list
@@ -138,35 +138,48 @@ const randomIndex = Math.floor(Math.random() * filteredMovies.length);
 
 // Return the randomly selected movie
 return filteredMovies[randomIndex];
+}
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    populateGenresDropdown();
-    analyzeMovies();
+  // Populate genres dropdown and analyze movies on page load
+  populateGenresDropdown();
+  analyzeMovies();
+  
+  // Get references to the search and surprise buttons
+  const searchBtn = document.getElementById('search-btn');
+  const surpriseBtn = document.getElementById('surprise-btn');
+
+  // Add click event listener for the search button
+  searchBtn.addEventListener('click', async function () {
+      // Get filter criteria values from user input
+      const genre = document.getElementById('genreFilter').value;
+      const runtime = document.getElementById('runtimeFilter').value;
+      const rating = document.getElementById('ratingFilter').value;
+      const excludeWatched = document.getElementById('excludeWatched').checked;
+
+      // Fetch and filter movies based on criteria
+      const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
+
+      // Update the UI with the filtered movies
+      updateUI(filteredMovies);
+  });
+
+  // event listener for the surprise button
+  surpriseBtn.addEventListener('click', async function () {
     
-    const searchBtn = document.getElementById('search-btn');
-    const surprisebtn = document.getElementById('surprise-btn');
-
-    searchBtn.addEventListener('click', async function () {
-        const genre = document.getElementById('genreFilter').value;
-        const runtime = document.getElementById('runtimeFilter').value;
-        const rating = document.getElementById('ratingFilter').value;
-        const excludeWatched = document.getElementById('excludeWatched').checked;
-
-        const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
-        updateUI(filteredMovies);
-    });
-
-    searchBtn.addEventListener('click', async function () {
-      console.log('search button clicked');
+      // Get filter criteria values from user input
       const genre = document.getElementById('genreFilter').value;
       const runtime = document.getElementById('runtimeFilter').value; // This is actually the maxRuntime
       const rating = document.getElementById('ratingFilter').value;
       const excludeWatched = document.getElementById('excludeWatched').checked;
-  
+
+      // Call the searchBtn function to fetch, filter, and select a movie
       const selectedMovie = await searchBtn(genre, runtime, rating, excludeWatched, 4);
+
+      // If a movie is selected, update the UI with the selected movie
       if (selectedMovie) {
-          updateUI([selectedMovie]); // Add this line to update the UI
+          updateUI([selectedMovie]);
       }
   });
 });
@@ -175,18 +188,22 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateUI(movies) {
   const resultsContainer = document.getElementById('results-container');
 
+  // Check if the results container element exists
   if (!resultsContainer) {
       console.error("Results container element not found.");
       return;
   }
 
+  // Clear the existing content in the results container
   resultsContainer.innerHTML = '';
 
+  // If no movies match the criteria, display a message
   if (movies.length === 0) {
       resultsContainer.innerHTML = 'No movies match your criteria.';
       return;
   }
 
+  // Display each movie title in the results container
   movies.forEach(movie => {
       const movieElement = document.createElement('div');
       movieElement.textContent = movie.Title; // Assuming the movie object has a "Title" property
