@@ -2,6 +2,8 @@
 // This script will set up the event listener for the buttons on the index.html page
 
 document.addEventListener('DOMContentLoaded', () => {
+    populateGenresDropdown();
+    analyzeMovies();
     console.log('DOM fully loaded and parsed');
 
     // Get the "Search" button by its ID
@@ -30,9 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const rating = document.getElementById('ratingFilter').value;
         const excludeWatched = document.getElementById('excludeWatched').checked;
 
-        await surpriseMe(genre, runtime, rating, excludeWatched); // Adapted to include handling for "Exclude Watched"
+        // Fetch a random movie based on criteria and update UI with clickable title      
+        const selectedMovie = await surpriseMe(genre, runtime, rating, excludeWatched);
+        if (selectedMovie) {
+            updateClickableUI([selectedMovie]);
+        }
     });
-});
 
 
 
