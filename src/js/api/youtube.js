@@ -24,7 +24,7 @@ function displayVideos(movieTitle) {
     part: 'snippet',
     q: movieTitle + ' trailer',
     type: 'video',
-    maxResults: 2,
+    maxResults: 1,
     key: apiKey
   };
 
