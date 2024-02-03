@@ -127,14 +127,17 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 // Function to select a group of movies based on criteria
 async function searchBtn(genre, runtime, rating, excludeWatched) {
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
-    if (filteredMovies.length === 0) {
-        console.log("No movies match your criteria.");
-        return null;
-    }
-
-    const randomIndex = Math.floor(Math.random() * filteredMovies.length);
-    return filteredMovies[randomIndex];
+ // If no movies match the criteria, log a message and return null
+ if (filteredMovies.length === 0) {
+  console.log("No movies match your criteria.");
+  return null;
 }
+
+// Select a random movie from the filtered list
+const randomIndex = Math.floor(Math.random() * filteredMovies.length);
+
+// Return the randomly selected movie
+return filteredMovies[randomIndex];
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
