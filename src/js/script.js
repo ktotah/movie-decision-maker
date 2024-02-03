@@ -1,14 +1,13 @@
 // script.js
 // This script will set up the event listener for the buttons on the index.html page
 
-// Ensure the DOM is fully loaded before attaching event listeners
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded and parsed');
 
     // Get the "Search" button by its ID
     const searchBtn = document.getElementById('search-btn');
     // Get the "Surprise Me!" button by its ID
-    const surpriseBtn = document.getElementById('surprise-btn');
+    const surpriseBtn = document.getElementById('surprise-Btn');
 
     // Event listener for the "Search" button
     searchBtn.addEventListener('click', async function() {
@@ -50,9 +49,12 @@ function handleSearch() {
     // Here, you would call your function to fetch and filter movies based on selected criteria including the excludeWatched flag
 }
 
-// Adapted surpriseMe function to include handling for "Exclude Watched"
-// Ensure this function is defined to fetch, filter, and randomly select a movie based on the criteria including whether to exclude watched movies
-async function surpriseMe() {
-    const excludeWatched = document.getElementById('excludeWatched').checked;
-    // Logic to fetch, filter, and select a movie, taking into account the excludeWatched flag
-}
+
+//function to filter movies based on user-specified criteria
+async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWatched) {
+    // Fetch details for all movies
+    const allMovies = await fetchAllMovieDetails();
+    
+    // Log the filtering criteria and all movies for debugging purposes
+    console.log('Filter Criteria:', { genre, maxRuntime, rating, excludeWatched });
+    console.log('All Movies:', allMovies);

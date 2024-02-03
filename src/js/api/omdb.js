@@ -15,8 +15,7 @@ async function fetchMovieDetails(title) {
 
 // Fetch details for all Top 250 movies
 async function fetchAllMovieDetails() {
-    // Use fetchMovieDetails correctly with async/await inside map
-    const movieDetailsPromises = top250MovieTitles.map (async (title) => await fetchMovieDetails(title));
+    const movieDetailsPromises = top250MovieTitles.map(async (title) => await fetchMovieDetails(title));
     return Promise.all(movieDetailsPromises);
 }
 
@@ -32,10 +31,7 @@ async function populateGenresDropdown() {
             }
         });
 
-        // Append genres to dropdown menu in HTML
         const genreDropdown = document.getElementById('genreFilter');
-
-        // Clear existing options in the dropdown
         genreDropdown.innerHTML = '';
 
         genres.forEach(genre => {
@@ -43,33 +39,26 @@ async function populateGenresDropdown() {
             option.value = genre;
             option.textContent = genre;
             genreDropdown.appendChild(option);
-
         });
     } catch (error) {
         console.error(`Error populating genres dropdown:`, error);
     }
 }
 
-
 // Call populatedGenresDropdown once all necessary DOM content has loaded
 document.addEventListener('DOMContentLoaded', () => {
     populateGenresDropdown();
+    analyzeMovies();
 });
-
 
 // Function to process runtime data
 function processRuntime(runtimeString) {
-    // Use a regular expression to match only the numbers in the runtime string
     const runtimeNumbers = runtimeString.match(/\d+/);
-
-    // Check if the match was successful
     if (runtimeNumbers) {
-        // Convert the matched string (first element of the array) to a number
         const runtime = parseInt(runtimeNumbers[0]);
         return runtime;
     } else {
-        // If no numbers were found, return a default value or handle as needed
-        return null; // or another value if that makes more sense....
+        return null;
     }
 }
 
@@ -82,25 +71,20 @@ async function analyzeMovies() {
 
         movies.forEach(movie => {
             if (movie && movie.Runtime && movie.Runtime != 'N/A') {
-                // Process the runtime to be a number and push it to the runtimes array
                 const runtime = processRuntime(movie.Runtime);
-                if (runtime) { // Make sure it's not null
+                if (runtime) {
                     runtimes.push(runtime);
                 }
             }
             if (movie && movie.Rated && movie.Rated !== 'N/A') {
-                // Add the rating to the ratings set
                 ratings.add(movie.Rated)
             }
         });
 
-        // Calculate runtime range and log it -- to detemine what the static dropdrown menu critera for runtime should reasonably be
         const minRuntime = Math.min(...runtimes);
         const maxRuntime = Math.max(...runtimes);
         console.log(`Runtime ranges: ${minRuntime} - ${maxRuntime} minutes`);
 
-
-        // Convert the ratings set to an array and log it -- to determine what the static dropdown menu critera for genre should reasonably be
         const ratingsArray = Array.from(ratings);
         console.log('Ratings:', ratingsArray);
 
@@ -109,41 +93,91 @@ async function analyzeMovies() {
     }
 }
 
-// Call analyzeMovies once all necessary DOM content has loaded
-document.addEventListener('DOMContentLoaded', () => {
-    populateGenresDropdown();
-    analyzeMovies(); // Calling analyzeMovies here as well
-});
-
-
 // Placeholder for filtering logic based on genres, runtime, rating, and watched status
 async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWatched) {
-    const allMovies = await fetchAllMovieDetails();
-    return allMovies.filter(movie =>{
-        const movieRuntime = processRuntime(movie.Runtime);
-        const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
-        const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
-        const meetsRatingCriteria = genre === 'all' ||(movie.Rated && movie.Rated === rating);
-        // need const isNotWatched for the local storage watched filter criteria.....
+  const allMovies = await fetchAllMovieDetails();
+  console.log('Filter Criteria:', { genre, maxRuntime, rating, excludeWatched });
+  console.log('All Movies:', allMovies);
 
-        return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria //&& isNotWatched
-        ;
-    });
+  const filteredMovies = allMovies.filter(movie => {
+      const movieRuntime = processRuntime(movie.Runtime);
+      const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
+      const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
+      const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
+      
+      // Check for watched status
+      const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
+
+      return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria && isNotWatched;
+  });
+
+  console.log('Filtered Movies:', filteredMovies);
+  return filteredMovies;
 }
- 
-// Function to select a random movie from the filtered list and naviage to its details page
-async function surpriseMe(genre, runtime, rating, excludeWatched) {
+
+// Function to select a random movie from the filtered list and navigate to its details page
+async function searchBtn(genre, runtime, rating, excludeWatched) {
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
     if (filteredMovies.length === 0) {
         console.log("No movies match your criteria.");
-        return;
+        return null;
     }
 
     const randomIndex = Math.floor(Math.random() * filteredMovies.length);
-    const selectedMovie = filteredMovies[randomIndex];
-
-    // Assuming selectedMovie contains the title to fetch details
-    const movieDetials = await fetchMovieDetails(selectedMovie.title);
-    console.log(`Surprise movie details: ${movieDetials}`);
+    return filteredMovies[randomIndex];
 }
 
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    populateGenresDropdown();
+    analyzeMovies();
+    
+    const searchBtn = document.getElementById('search-btn');
+    const surprisebtn = document.getElementById('surprise-btn');
+
+    searchBtn.addEventListener('click', async function () {
+        const genre = document.getElementById('genreFilter').value;
+        const runtime = document.getElementById('runtimeFilter').value;
+        const rating = document.getElementById('ratingFilter').value;
+        const excludeWatched = document.getElementById('excludeWatched').checked;
+
+        const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
+        updateUI(filteredMovies);
+    });
+
+    searchBtn.addEventListener('click', async function () {
+      console.log('search button clicked');
+      const genre = document.getElementById('genreFilter').value;
+      const runtime = document.getElementById('runtimeFilter').value; // This is actually the maxRuntime
+      const rating = document.getElementById('ratingFilter').value;
+      const excludeWatched = document.getElementById('excludeWatched').checked;
+  
+      const selectedMovie = await searchBtn(genre, runtime, rating, excludeWatched, 4);
+      if (selectedMovie) {
+          updateUI([selectedMovie]); // Add this line to update the UI
+      }
+  });
+});
+
+// Function to update the UI with movie data
+function updateUI(movies) {
+  const resultsContainer = document.getElementById('results-container');
+
+  if (!resultsContainer) {
+      console.error("Results container element not found.");
+      return;
+  }
+
+  resultsContainer.innerHTML = '';
+
+  if (movies.length === 0) {
+      resultsContainer.innerHTML = 'No movies match your criteria.';
+      return;
+  }
+
+  movies.forEach(movie => {
+      const movieElement = document.createElement('div');
+      movieElement.textContent = movie.Title; // Assuming the movie object has a "Title" property
+      resultsContainer.appendChild(movieElement);
+  });
+}
