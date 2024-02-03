@@ -9,7 +9,7 @@ async function fetchMovieDetails(title) {
         return movieDetails;
       } catch (error) {
         console.error(`Error fetching movie details for ${title}:`, error);
-        throw error; // Rethrow the error to propagate it
+        throw error; 
     }
 }
 
