@@ -85,7 +85,7 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 
 //function to select a random movie based on specified criteria
 async function surpriseMe(genre, runtime, rating, excludeWatched) {
-    
+
     // Filter movies based on criteria
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
     
@@ -107,4 +107,14 @@ async function surpriseMe(genre, runtime, rating, excludeWatched) {
 
     // Update the UI with the selected surprise movie
     updateUI([selectedMovie]);
+}
+
+
+// function to handle the "Surprise Me" button click event
+async function handleSurpriseMe() {
+    // Get the excludeWatched checkbox status
+    const excludeWatched = document.getElementById('surpriseMe').checked;
+
+    // Call the surpriseMe function to fetch, filter, and select a movie
+    await surpriseMe('', '', '', excludeWatched);
 }
