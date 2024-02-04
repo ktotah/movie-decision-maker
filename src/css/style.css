@@ -33,7 +33,9 @@ ul {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+
+    padding: 10px 20px 0px 20px;
+
 }
 
 li {
@@ -46,15 +48,11 @@ nav a {
     font-weight: bold;
 }
 
-nav a:hover {
+
+a:hover {
     color: white; /* white on hover */
     text-decoration: underline; /* underline on hover */
-    cursor: pointer;
-    transition: color 0.3s;
-}
 
-nav a:active {
-    color: #f00; /* red "click" color */
 }
 
 
@@ -66,13 +64,14 @@ nav a:active {
 
 h1 {
     color: #ffa903; /* yellow text color */
-    padding: 5px 50px 50px 50px;
+
+    padding: 0px 50px 30px 50px;
     font-size: 4em;
 }
 
 h2 {
     color: #ffa903; /* yellow text color */
-    font-size: 2em;
+    font-size: 1.5em;
     padding: 20px
 }
 
@@ -117,42 +116,48 @@ input {
     flex: 1;
 }
 
+
 #results-container {
     position: relative;
     max-height: 148px;
     overflow-y: auto;
     background-color: #ffa903;
     line-height: 1.5;
+
+    margin-top: 20px;
 }
- 
-#results-container a {
-    text-decoration: none;
-    color: #000000; /* black text color */
+
+#results-container a, #results-container a:visited{
+    color: black;
     font-weight: bold;
+    text-decoration: none;
 }
 
 #results-container a:hover{
-    color: #0d3fa9; /* color changes on hover to blue */
-    text-decoration: underline; /* underline shows on hover */ 
-    cursor: pointer;
-    transition: color 0.2s;
+    color: #0d3fa9;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 #results-container a:active{
-    color: #f00; /* "click" color */
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-/* Styling the scrollbar track */
+/* Adding, styling the scrollbar track so that it is clear that the results container is a scrollable area */ 
 #results-container::-webkit-scrollbar {
-  width: 12px; /* Adjust the width of the scrollbar */
+  width: 14px; /* Adjust the width of the scrollbar */
+
   background-color: #f5f5f5; /* The track color */
 }
 
 /* Styling the scrollbar thumb */
 #results-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* The thumb color */
-  border-radius: 6px; /* Optional: if you want rounded corners */
-  border: 3px solid #f5f5f5; /* Optional: if you want a border around the thumb */
+
+  background-color: #0d3fa9; /* The thumb color */
+  border-radius: 8px; 
+  border: 3px solid #f5f5f5; 
 }
 
 /* Styling buttons container */
@@ -162,6 +167,8 @@ input {
     left: 0;
     padding-bottom: 20px;
     margin-top: 0;
+    margin-bottom: 20px;
+
     width: 100%;
     background-color: #0d3fa9;
     text-align: center;
@@ -169,7 +176,9 @@ input {
 }
 
 /* Styling for individual buttons */
-button {
+
+button, button:visited {
+
     background-color: #ffa903; /* Yellow */
     color: #fff; /* White text color */
     padding: 10px 20px;
@@ -181,8 +190,12 @@ button {
     font-size: 20px;
 }
 
-button:hover {
+button:active {
     background-color: #0d3fa9 ; /* Blue on Hover */
+}
+
+button:hover {
+    color:#0d3fa9;
 }
 
 /* Movie Results styling */
@@ -236,15 +249,12 @@ iframe {
 }
 
 
-
-/* MEDIA QUERIES - responsive design adjustments */
-/* featuring adjustments for specific breakpoints that were determined via testing various viewpoints*/
-
-/* Responsive design in respect to page HEIGHT */
+/* MEDIA QUERIES - were determined by testing for various breakpoints in different viewports */
 @media (max-width: 848px)  {
     h1 {
         font-size: 3.6em;
-        padding: 35px;
+        padding: 0px 35px 30px 35px;
+
     }
 
     h2 {
@@ -263,7 +273,7 @@ iframe {
 @media (max-width: 751px)  {
     h1 {
         font-size: 3.2em;
-        padding: 35px;
+
     }
 
     h2 {
@@ -286,7 +296,8 @@ iframe {
 @media (max-width: 684px) {
     h1 {
         font-size: 3em;
-        padding: 25px;
+        padding: 0px 25px 25px 25px;
+
     }
 
     h2 {
@@ -303,12 +314,20 @@ iframe {
         flex-direction: column;
         align-items: center;
     }
+
+
+    #results-container {
+        margin-bottom: 20px;
+    }
+
 }
 
 @media (max-width: 631px) {
     h1 {
         font-size: 2.8em;
-        padding: 17px;
+
+        padding: 0px 17px 17px 17px;
+
     }
 
     #search-panel {
@@ -335,9 +354,6 @@ iframe {
 }
 
 @media (max-width: 499px) {
-    #home {
-        padding: 20px;
-    }
 
     h1 {
         font-size: 2.2em;
@@ -346,6 +362,7 @@ iframe {
     h2 {
         font-size: 1.1em
     }
+
 
     #results-container {
         font-size: 14px;
@@ -369,7 +386,7 @@ iframe {
     }    
 }
 
-/* Responsive design in respect to page HEIGHT */
+
 @media (max-height: 844px) {
     .buttons {
         position: relative;
