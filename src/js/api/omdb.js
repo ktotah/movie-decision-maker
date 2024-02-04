@@ -26,6 +26,12 @@ async function populateGenresDropdown() {
         const movies = await fetchAllMovieDetails();
         let genres = new Set();
 
+        // Add a default "All Genres" option
+        const allGenresOption = document.createElement('option');
+        allGenresOption.value = 'All Genres';
+        allGenresOption.textContent = 'All Genres';
+        genres.add('All Genres');
+
         movies.forEach(movie => {
             if (movie && movie.Genre && movie.Genre !== 'N/A') {
                 movie.Genre.split(', ').forEach(genre => genres.add(genre));
@@ -34,16 +40,48 @@ async function populateGenresDropdown() {
 
         const genreDropdown = document.getElementById('genreFilter');
         genreDropdown.innerHTML = '';
+
         genres.forEach(genre => {
             const option = document.createElement('option');
             option.value = genre;
             option.textContent = genre;
             genreDropdown.appendChild(option);
         });
+
+        // Add event listener to update displayed movies on genre change
+        genreDropdown.addEventListener('change', () => {
+            const selectedGenre = genreDropdown.value;
+            updateDisplayedMovies(selectedGenre, movies);
+        });
+
+        // Initially update displayed movies with "All Genres"
+        updateDisplayedMovies('All Genres', movies);
     } catch (error) {
         console.error(`Error populating genres dropdown:`, error);
     }
 }
+
+function updateDisplayedMovies(selectedGenre, allMovies) {
+    let displayedMovies;
+
+    if (selectedGenre === 'All Genres') {
+        // Show all movies
+        displayedMovies = allMovies;
+    } else {
+        // Filter movies based on the selected genre
+        displayedMovies = allMovies.filter(movie => 
+            movie && movie.Genre && movie.Genre.includes(selectedGenre)
+        );
+    }
+
+    // Implement logic to update the UI with the displayed movies
+    // For example, you can render the movies in the UI based on the 'displayedMovies' array.
+    console.log(`Updating displayed movies for genre: ${selectedGenre}`);
+    console.log(displayedMovies);
+}
+
+// Call the function to populate the genres dropdown
+populateGenresDropdown();
 
 // Call populatedGenresDropdown once all necessary DOM content has loaded
 document.addEventListener('DOMContentLoaded', () => {
