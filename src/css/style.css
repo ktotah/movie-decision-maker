@@ -343,6 +343,10 @@ iframe {
         font-size: 1.1em
     }
 
+    nav{
+        font-size: 20px;
+    }
+
     #results-container {
         font-size: 14px;
         line-height: 1.7;
