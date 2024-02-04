@@ -272,9 +272,9 @@ async function populateRatingsDropdown() {
 
         // Add a default "All Ratings" option
         const allRatingsOption = document.createElement('option');
-        allRatingsOption.value = 'all';
+        allRatingsOption.value = 'All Ratings';
         allRatingsOption.textContent = 'All Ratings';
-        ratings.add('all');
+        ratings.add('All Ratings');
 
         movies.forEach(movie => {
             if (movie && movie.Rated && movie.Rated !== 'N/A') {
