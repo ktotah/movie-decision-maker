@@ -86,6 +86,7 @@ populateGenresDropdown();
 // Call populatedGenresDropdown once all necessary DOM content has loaded
 document.addEventListener('DOMContentLoaded', () => {
     populateGenresDropdown();
+    populateRatingsDropdown();
     analyzeMovies();
 });
 
@@ -104,7 +105,7 @@ function processRuntime(runtimeString) {
       return null; // or another value if that makes more sense....
   }
 }
-
+  
 
 // Analyze movie details to extract runtime, genres, and ratings
 async function analyzeMovies() {
@@ -183,6 +184,7 @@ return filteredMovies[randomIndex];
 document.addEventListener('DOMContentLoaded', () => {
   // Populate genres dropdown and analyze movies on page load
   populateGenresDropdown();
+  populateRatingsDropdown();
   analyzeMovies();
   
   // Get references to the search and surprise buttons
@@ -262,4 +264,43 @@ function updateUI(movies) {
         // Append the movie element to the results container
         resultsContainer.appendChild(movieElement);
     });
+}
+async function populateRatingsDropdown() {
+    try {
+        const movies = await fetchAllMovieDetails();
+        let ratings = new Set();
+
+        // Add a default "All Ratings" option
+        const allRatingsOption = document.createElement('option');
+        allRatingsOption.value = 'all';
+        allRatingsOption.textContent = 'All Ratings';
+        ratings.add('all');
+
+        movies.forEach(movie => {
+            if (movie && movie.Rated && movie.Rated !== 'N/A') {
+                ratings.add(movie.Rated);
+            }
+        });
+
+        const ratingDropdown = document.getElementById('ratingFilter');
+        ratingDropdown.innerHTML = '';
+
+        ratings.forEach(rating => {
+            const option = document.createElement('option');
+            option.value = rating;
+            option.textContent = rating;
+            ratingDropdown.appendChild(option);
+        });
+
+        // Add event listener to update displayed movies on rating change
+        ratingDropdown.addEventListener('change', () => {
+            const selectedRating = ratingDropdown.value;
+            updateDisplayedMovies(selectedRating, movies);
+        });
+
+        // Initially update displayed movies with "All Ratings"
+        updateDisplayedMovies('all', movies);
+    } catch (error) {
+        console.error(`Error populating ratings dropdown:`, error);
+    }
 }
