@@ -24,14 +24,14 @@
         <!-- Main text on the home page -->
         <div id="home-text">
             <h1>Movie Decision Maker</h1>
-            <h2>Not sure what to watch?<br>Let us decide which of IMDb's top 250 movies you should watch!</h2>
+            <h2>Not sure what to watch?<br>Let us help you find one of IMDb's top 250 movies!</h2>
             <h3>Please input your search criteria or enjoy a random selection.</h3>
         </div>
         
         <!-- Filters / Movie Criteria -->
         <!-- Search Panel -->
         <div id="search-panel">
-            <div dropdown-menus>
+            <div id="dropdown-menus">
                 <!-- Genre Filter Drop-Down -->
                 <select id="genreFilter">
                     <option value="all">All Genres</option>
@@ -41,7 +41,7 @@
                 <!-- Runtime Filter Drop-Down -->
                 <select id="runtimeFilter">
                     <option value="all">All Runtimes</option>
-                    <option value="90">Under 1 hour</option>
+                    <option value="90">Under 1.5 hours</option>
                     <option value="120">Under 2 hours</option>
                     <option value="180">Under 3 hours</option>
                 </select>
@@ -55,32 +55,38 @@
             
             <!-- Exclude Watched Checkbox -->
             <div>
-                <!-- Other elements... -->
                 <label for="excludeWatched">Exclude Watched:</label>
                 <input type="checkbox" id="excludeWatched" name="excludeWatched">
-
             </div>
+
+            <!-- Search Buttons -->
             <button id="search-btn">Find A Movie</button>
-            <button id="surprise-Btn">Surprise Me</button>
+            <button id="surprise-Btn">Surprise Me!</button>
+
+            <!-- Search Results Container -->
             <div id="results-container"></div>
+
+            <!-- Videos container -->
             <div id="videos-container"></div>
-            <!-- Search Button -->
-            
-            
-            
+
         </div>
         
     </main>
 
     <!-- ADD OTHER JAVASCRIPT FILES HERE!!! -->
 
-    <!-- JavaScript files -->
-<script src="./src/js/api/youtube.js"></script>
-    <!-- Include the imdbTop250 script -->
+    <!-- JS FILES -->
+
+    <!-- imdbTop250 script -->
     <script src="src/js/imdbTop250.js"></script>
-    <!-- Include the OMDB API script -->
+
+    <!-- Youtube API script -->
+    <script src="./src/js/api/youtube.js"></script>
+
+    <!-- OMDB API script -->
     <script src="src/js/api/omdb.js"></script>
-    <!-- Include your main script -->
+
+    <!-- Main script -->
     <script src="src/js/script.js"></script>
 </body>
 </html>
