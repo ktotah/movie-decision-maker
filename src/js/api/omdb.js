@@ -149,7 +149,9 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 
   const filteredMovies = allMovies.filter(movie => {
       const movieRuntime = processRuntime(movie.Runtime);
-      const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
+
+      const meetsRuntimeCriteria = maxRuntime === 
+      'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
       const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
       const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
               const meetsYearCriteria = year === 'all' || (movie.Year && movie.Year === year);
@@ -157,12 +159,13 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
       // Check for watched status
       const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
 
-      return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria && isNotWatched;
-  });
+        return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria && isNotWatched && meetsYearCriteria;
+    });
 
-  console.log('Filtered Movies:', filteredMovies);
-  return filteredMovies;
+    console.log('Filtered Movies:', filteredMovies);
+    return filteredMovies;
 }
+
 
 // Function to select a group of movies based on criteria
 async function searchBtn(genre, runtime, rating, excludeWatched,year) {
@@ -252,6 +255,14 @@ function updateUI(movies) {
       titleLink.href = '#'; // You can set this to '#' or a placeholder link
       titleLink.textContent = movie.Title;
 
+      const watchedCheckbox = document.createElement('input');
+      watchedCheckbox.type = 'checkbox';
+      watchedCheckbox.id = `watched-${movie.Title.replace(/\s+/g, '-')}`;
+      watchedCheckbox.checked = localStorage.getItem(movie.Title) === 'watched';
+      watchedCheckbox.addEventListener('change', function () {
+        localStorage.setItem(movie.Title, watchedCheckbox.checked ? 'watched' : '');
+    });
+
       // Add click event listener to the anchor
       titleLink.addEventListener('click', function (event) {
           event.preventDefault(); // Prevent the default link behavior
@@ -260,7 +271,7 @@ function updateUI(movies) {
 
       // Append the anchor to the movie element
         movieElement.appendChild(titleLink);
-
+        movieElement.appendChild(watchedCheckbox);
         // Append the movie element to the results container
         resultsContainer.appendChild(movieElement);
     });
