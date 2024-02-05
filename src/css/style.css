@@ -18,6 +18,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #0d3fa9;
+  color: #ffa903;
 }
 
 
@@ -228,25 +229,6 @@ iframe {
 }
 
 /* Watched Movies Page styling */
-#watched {
-    display: none; /* Hidden by default */
-    text-align: center;
-    padding: 40px;
-}
-
-#watched h2 {
-    color:#ffa903; /*Blue text color */
-}
-
-#watched-movies {
-    list-style-type: none;
-    padding: 0;
-}
-
-#watched-movies li {
-    margin-bottom: 10px;
-    color: #ffa903; /* Yellow text color */
-}
 
 
 /* MEDIA QUERIES - were determined by testing for various breakpoints in different viewports */
