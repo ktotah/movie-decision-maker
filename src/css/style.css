@@ -21,42 +21,6 @@ body {
   color: #ffa903;
 }
 
-
-
-/* Navigation Bar styling */
-nav {
-    background-color: #0d3fa9; /* Blue background color */
-    padding: 10px;
-    font-size: 24px;
-}
-
-ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-
-    padding: 10px 20px 0px 20px;
-
-}
-
-li {
-    margin: 0 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #ffa903; /* Yellow text color */
-    font-weight: bold;
-}
-
-
-a:hover {
-    color: white; /* white on hover */
-    text-decoration: underline; /* underline on hover */
-
-}
-
-
 /* Home/Search Page styling */
 #home {
     text-align: center;
@@ -65,8 +29,7 @@ a:hover {
 
 h1 {
     color: #ffa903; /* yellow text color */
-
-    padding: 0px 50px 30px 50px;
+    padding: 20px 50px 30px 50px;
     font-size: 4em;
 }
 
@@ -79,7 +42,7 @@ h2 {
 h3 {
     color: #ffa903; /* yellow text color */
     font-size: 1.5em;
-    padding: 20px
+    padding: 20px, 20px, 10px, 20px;
 }
 
 #search-panel {
@@ -98,12 +61,11 @@ h3 {
 #excludeWatched {
     margin-right: 10px;
     cursor: pointer;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 
 label {
-    margin-right: 10px;
     color: #ffa903; /* yellow text color */
     font-size: 20px;
 }
@@ -117,21 +79,36 @@ input {
     flex: 1;
 }
 
+#note {
+    font-size: 16;
+    font-style: italic;
+    margin-top: 20px;
+}
 
 #results-container {
     position: relative;
-    max-height: 148px;
+    max-height: 150px;
     overflow-y: auto;
     background-color: #ffa903;
     line-height: 1.5;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: black;
+}
 
-    margin-top: 20px;
+#results-container input{
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #results-container a, #results-container a:visited{
     color: black;
     font-weight: bold;
     text-decoration: none;
+    padding-left: 80px;
+    padding-right: 0px;
+   
 }
 
 #results-container a:hover{
@@ -179,7 +156,6 @@ input {
 /* Styling for individual buttons */
 
 button, button:visited {
-
     background-color: #ffa903; /* Yellow */
     color: #fff; /* White text color */
     padding: 10px 20px;
@@ -235,8 +211,7 @@ iframe {
 @media (max-width: 848px)  {
     h1 {
         font-size: 3.6em;
-        padding: 0px 35px 30px 35px;
-
+        padding: 20px 35px 30px 35px;
     }
 
     h2 {
@@ -247,15 +222,18 @@ iframe {
         font-size: 1.2em;
     }
 
+    button {
+        margin-top: 0px;
+    }
+
     #results-container {
         max-height: 190px;
     }
 }
 
-@media (max-width: 751px)  {
+@media (max-width: 770px)  {
     h1 {
         font-size: 3.2em;
-
     }
 
     h2 {
@@ -271,9 +249,11 @@ iframe {
         margin-right: 5px;
         width: 185px;
     }
-   
-} 
 
+    #results-container {
+        font-size: 14px;
+    }
+} 
 
 @media (max-width: 684px) {
     h1 {
@@ -300,6 +280,8 @@ iframe {
 
     #results-container {
         margin-bottom: 20px;
+        text-align: left;
+        padding-left: 10px;
     }
 
 }
@@ -307,7 +289,6 @@ iframe {
 @media (max-width: 631px) {
     h1 {
         font-size: 2.8em;
-
         padding: 0px 17px 17px 17px;
 
     }
@@ -319,9 +300,21 @@ iframe {
     #excludeWatched {
         margin-bottom: 15px;
     }
+
+    #results-container {
+        font-size: 13px;
+    }
+
+    #results-container a{
+        padding-left: 60px;
+    }
 }
 
 @media (max-width: 549px) {
+    #home {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     h1 {
         font-size: 2.3em;
     }
@@ -336,7 +329,6 @@ iframe {
 }
 
 @media (max-width: 499px) {
-
     h1 {
         font-size: 2.2em;
     }
@@ -345,27 +337,34 @@ iframe {
         font-size: 1.1em
     }
 
+    label {
+        font-size: 18px;
+    }
 
     #results-container {
-        font-size: 14px;
         line-height: 1.7;
     }    
 
-    label {
-        font-size: 18px;
+    #results-container a{
+        padding-left: 10px;
     }
 }
 
 @media (max-width: 376px) {
-    a {
-        font-size: 0.8em;
+    #home {
+        padding-left: 15px;
+        padding-right: 15px;
     }
-
+    
     #results-container {
-        font-size: 13px;
         line-height: 1.7;
         max-height: 160px;
+    }   
+
+    #results-container a{
+        font-size: 0.8em;
     }    
+
 }
 
 
