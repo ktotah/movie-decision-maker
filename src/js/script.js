@@ -190,3 +190,30 @@ async function handleSurpriseMe() {
     // Call the surpriseMe function to fetch, filter, and select a movie
     await surpriseMe('', '', '', excludeWatched);
 }
+
+
+movies.forEach(movie => {
+    const movieElement = document.createElement('div');
+    // Wrap the title in an anchor element
+    const titleLink = document.createElement('a');
+    titleLink.href = '#';
+    titleLink.textContent = movie.Title;
+
+    // Add a checkbox for watched status
+    const watchedCheckbox = document.createElement('input');
+    watchedCheckbox.type = 'checkbox';
+    watchedCheckbox.id = `watched-${movie.Title.replace(/\s+/g, '-')}`;
+    watchedCheckbox.checked = localStorage.getItem(movie.Title) === 'watched'; // Check the checkbox if movie is watched
+
+    // Add change event listener to update watched status in localStorage
+    watchedCheckbox.addEventListener('change', function () {
+        localStorage.setItem(movie.Title, watchedCheckbox.checked ? 'watched' : ''); // Set or remove 'watched' status in localStorage
+    });
+
+    // Append title and checkbox to the movie element
+    movieElement.appendChild(titleLink);
+    movieElement.appendChild(watchedCheckbox);
+
+    // Append the movie element to the results container
+    resultsContainer.appendChild(movieElement);
+});
