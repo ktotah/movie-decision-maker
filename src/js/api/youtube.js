@@ -1,5 +1,5 @@
 // api key and url for youtube
-const apiKey = 'AIzaSyDcOM0ne4VtAftRHqaOBMEWPGQ45UBT498';
+const apiKey = 'AIzaSyD_lBfHsrmjM6yTJVrS-ZcA5lmtaN4DeRQ';
 const apiUrl = 'https://www.googleapis.com/youtube/v3/search';
 
 
