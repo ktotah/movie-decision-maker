@@ -53,18 +53,75 @@ videosContainer.innerHTML = ''; // Clear previous results
     });
 }
 
-// Modify handleTitleClick function
-function handleTitleClick(movie) {
-    // Fetch YouTube video details based on the movie title
-    displayVideos(movie.Title)
-        .then(videoDetails => {
-            // Display YouTube videos using the YouTube API script
-            displayVideos(movie.Title);
-        })
-        .catch(error => {
-            console.error('Error fetching YouTube video details:', error);
-        });
+// Handles clicking on a movie title and shows movie detail + youtube trailers
+async function handleTitleClick(movie) {
+    try {
+        // Fetch movie details using the OMDb API
+        const movieDetails = await fetchMovieDetails(movie.Title);
+        // Create and display the movie info card
+        createMovieInfoCard(movieDetails);
+        // Fetch and display YouTube video using the YouTube API script
+        displayVideos(movie.Title)
+    } catch(error) {
+        console.error('Error fetching movie & YouTube video details:', error);
+    }
 } 
+
+// Creates a movie info card with the details
+function createMovieInfoCard(details) {
+    // Check if an existing info card is there, removie it if so 
+    const existingCard = document.getElementById('movie-info-card');
+    if (existingCard) existingCard.remove();
+
+    // Create a new card element
+    const card = document.createElement('div');
+    card.id = 'movie-info-card';
+    card.classList.add('movie.info-card');
+
+    // Create the poster image element
+    const poster = document.createElement('img');
+    poster.src = details.Poster;
+    poster.alt = `${details.Title} Poster`;
+    poster.classList.add('movie-poster');
+
+    // Create a container for the text details
+    const textDetails = document.createElement('div');
+    textDetails.classList.add('movie-details');
+
+    // Add the inner HTML with movie details to the text details container
+    textDetails.innerHTML = `
+        <p><strong>Genre:</strong> ${details.Genre}</p>
+        <p><strong>Rated:</strong> ${details.Rated}</p>
+        <p><strong>Runtime:</strong> ${details.Runtime}</p><br>
+        <p><strong>IMDb Rating:</strong> ${details.imdbRating}/10</p>
+        <p><strong>Awards:</strong> ${details.Awards}</p><br>
+        <p><strong>Director:</strong> ${details.Director}</p>
+        <p><strong>Cast:</strong> ${details.Actors}</p><br>
+        <p><strong>Plot:</strong> ${details.Plot}</p>
+    `;
+
+    // Create a container for the title
+    const titleContainer  = document.createElement('h4');
+    titleContainer.id = 'title';
+    titleContainer.textContent = `${details.Title}, (${details.Year})`;
+
+    // Create a container for the poster and text details
+    const contentContainer = document.createElement('div')
+    contentContainer.classList.add('movie-content');
+
+    //Append the poster and text details to the content container
+    contentContainer.appendChild(poster);
+    contentContainer.appendChild(textDetails);
+
+    // Append the title and content container to the card
+    card.appendChild(titleContainer);
+    card.appendChild(contentContainer);
+    
+    // Insert the card above the video container
+    const videosContainer = document.getElementById('videos-container');
+    videosContainer.parentNode.insertBefore(card, videosContainer);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     populateGenresDropdown();
     analyzeMovies();

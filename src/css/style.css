@@ -56,6 +56,10 @@ h3 {
     padding: 20px, 20px, 10px, 20px;
 }
 
+h4 {
+    font-size: 1.4em;
+}
+
 #search-panel {
     margin-top: 30px;
 }
@@ -103,7 +107,7 @@ input {
     background-color: #ffa903;
     line-height: 1.5;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     text-align: center;
     color: black;
 }
@@ -186,39 +190,46 @@ button:hover {
     color:#0d3fa9;
 }
 
-/* Movie Results styling */
-#movie-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
+/* Movie details card */
+#movie-info-card {
+    margin-bottom: 45px;
+    justify-content: center;
 }
 
-/* Movie Detail Page styling */
-#movie-detail {
-    display: none; /* Hidden by default */
+#title {
     text-align: center;
-    padding: 40px;
-}
-
-#movie-detail h2 {
-    color: #ffa903; /* Blue text color */
-}
-
-#movie-detail p {
-    margin-bottom: 20px;
-    color: #ffa903; /* Blue text color */
-}
-
-iframe {
     width: 100%;
-    height: 315px;
-    border: none;
+    margin-bottom: 10px;
+    text-decoration: underline;
 }
 
-/* Watched Movies Page styling */
+.movie-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 
+.movie-poster {
+    max-width: 200px;
+}
+
+.movie-details{
+    max-width: 400px;
+    text-align: left;
+}
+
+#videos-container iframe { 
+    height: 400px;
+    width: 60%;
+}
 
 /* MEDIA QUERIES - were determined by testing for various breakpoints in different viewports */
+@media (max-width: 1250px) {
+    #videos-container iframe { 
+        width: 80%;
+    }
+}
 @media (max-width: 848px)  {
     h1 {
         font-size: 3.6em;
@@ -239,6 +250,11 @@ iframe {
 
     #results-container {
         max-height: 190px;
+    }
+
+    #videos-container iframe { 
+        height: 350px;
+        width: 90%;
     }
 }
 
@@ -319,6 +335,12 @@ iframe {
     #results-container a{
         padding-left: 60px;
     }
+
+    .movie-content {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 
 @media (max-width: 549px) {
@@ -336,6 +358,11 @@ iframe {
 
     #excludeWatched {
         margin-bottom: 23px;
+    }
+
+    #videos-container iframe { 
+        height: 200px;
+        width: 80%;
     }
 }
 

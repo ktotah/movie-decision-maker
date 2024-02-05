@@ -45,7 +45,7 @@ function displayVideos(movieTitle) {
 
         const videoElement = document.createElement('div');
         videoElement.innerHTML = `
-          <h3>${videoTitle}</h3>
+          <h4>${videoTitle}</h4>
           <iframe width="360" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
         `;
 
