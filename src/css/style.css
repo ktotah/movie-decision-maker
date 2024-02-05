@@ -1,4 +1,13 @@
 /* Main Stylesheet */
+
+/* Custom font */
+@font-face {
+    font-family: 'ITC Machine Medium';
+    src: url('../assets/ITC\ Machine\ Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: medium;
+}
+
 /* Reset some default styling */
 body,
 h1,
@@ -28,6 +37,8 @@ body {
 }
 
 h1 {
+    font-family:  'ITC Machine Medium', fallback-font, sans-serif;
+    transform: rotate(-5deg);
     color: #ffa903; /* yellow text color */
     padding: 20px 50px 30px 50px;
     font-size: 4em;
