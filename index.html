@@ -9,23 +9,13 @@
     <!-- Add CSS Framework Here-->
 </head>
 <body>
-    <header>
-        <!-- Navigation Bar -->
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="src/html/watched.html">Watched Movies</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <!-- Main Content: Home / Search Page -->
     <main id="home">
         <!-- Main text on the home page -->
         <div id="home-text">
             <h1>Movie Decision Maker</h1>
             <h2>Not sure what to watch?<br>Let us help you find one of IMDb's top 250 movies!</h2>
-            <h3>Please input your search criteria or enjoy a random selection.</h3>
+            <h3>Please input your search criteria below.</h3>
         </div>
         
         <!-- Filters / Movie Criteria -->
@@ -35,21 +25,21 @@
                 <!-- Genre Filter Drop-Down -->
                 <select id="genreFilter">
                     <option value="all">All Genres</option>
-                    <!-- Populate with genres found in the Top 250 list -->
+                    <!-- Genre options populated by omdb.js -->
                 </select>
 
                 <!-- Runtime Filter Drop-Down -->
                 <select id="runtimeFilter">
-                    <option value="all">All Runtimes</option>
-                    <option value="90">1.5 hours or less</option>
-                    <option value="120">2 hours or less</option>
+                    <option value="all">4 hours or less</option>
                     <option value="180">3 hours or less</option>
+                    <option value="120">2 hours or less</option>
+                    <option value="90">1.5 hours or less</option>
                 </select>
 
                 <!-- Rating Filter Drop-Down -->
                 <select id="ratingFilter">
-                    <option value="All Ratings">All Ratings</option>
-                    <!-- Populate with rating ranges -->
+                    <option value="all">All Ratings</option>
+                    <!-- Rating options populated by omdb.js -->
                 </select>
             </div>
             
@@ -64,6 +54,8 @@
             <button id="search-btn">Find A Movie</button>
             <button id="surprise-Btn">Surprise Me!</button>
 
+            <p id="note">Check the box next to a movie's name to mark it as watched.<br> Click on a movie's title to see its poster, info, and trailer below.</p>
+
             <!-- Search Results Container -->
             <div id="results-container"></div>
 
@@ -73,7 +65,6 @@
 
         </div>
     </main>
-    <!-- ADD OTHER JAVASCRIPT FILES HERE!!! -->
 
     <!-- JS FILES -->
 
@@ -88,5 +79,6 @@
 
     <!-- Main script -->
     <script src="src/js/script.js"></script>
+
 </body>
 </html>

@@ -15,7 +15,7 @@ async function fetchMovieDetails(title) {
 
 // Fetch details for all Top 250 movies
 async function fetchAllMovieDetails() {
-  // Use fetchMovieDetails correctly with async/await inside map
+    // Use fetchMovieDetails correctly with async/await inside map
     const movieDetailsPromises = top250MovieTitles.map(async (title) => await fetchMovieDetails(title));
     return Promise.all(movieDetailsPromises);
 }
@@ -25,12 +25,6 @@ async function populateGenresDropdown() {
     try {
         const movies = await fetchAllMovieDetails();
         let genres = new Set();
-
-        // Add a default "All Genres" option
-        const allGenresOption = document.createElement('option');
-        allGenresOption.value = 'All Genres';
-        allGenresOption.textContent = 'All Genres';
-        genres.add('All Genres');
 
         movies.forEach(movie => {
             if (movie && movie.Genre && movie.Genre !== 'N/A') {
@@ -53,32 +47,12 @@ async function populateGenresDropdown() {
             const selectedGenre = genreDropdown.value;
             updateDisplayedMovies(selectedGenre, movies);
         });
-
-        // Initially update displayed movies with "All Genres"
-        updateDisplayedMovies('All Genres', movies);
+        updateDisplayedMovies('all', movies);
     } catch (error) {
         console.error(`Error populating genres dropdown:`, error);
     }
 }
 
-function updateDisplayedMovies(selectedGenre, allMovies) {
-    let displayedMovies;
-
-    if (selectedGenre === 'All Genres') {
-        // Show all movies
-        displayedMovies = allMovies;
-    } else {
-        // Filter movies based on the selected genre
-        displayedMovies = allMovies.filter(movie => 
-            movie && movie.Genre && movie.Genre.includes(selectedGenre)
-        );
-    }
-
-    // Implement logic to update the UI with the displayed movies
-    // For example, you can render the movies in the UI based on the 'displayedMovies' array.
-    console.log(`Updating displayed movies for genre: ${selectedGenre}`);
-    console.log(displayedMovies);
-}
 
 // Call the function to populate the genres dropdown
 populateGenresDropdown();
@@ -92,18 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to process runtime data
 function processRuntime(runtimeString) {
-  // Use a regular expression to match only the numbers in the runtime string
-  const runtimeNumbers = runtimeString.match(/\d+/);
+    // Use a regular expression to match only the numbers in the runtime string
+    const runtimeNumbers = runtimeString.match(/\d+/);
 
-  // Check if the match was successful
-  if (runtimeNumbers) {
-      // Convert the matched string (first element of the array) to a number
-      const runtime = parseInt(runtimeNumbers[0]);
-      return runtime;
-  } else {
-      // If no numbers were found, return a default value or handle as needed
-      return null; // or another value if that makes more sense....
-  }
+    // Check if the match was successful
+    if (runtimeNumbers) {
+        // Convert the matched string (first element of the array) to a number
+        const runtime = parseInt(runtimeNumbers[0]);
+        return runtime;
+    } else {
+        // If no numbers were found, return a default value or handle as needed
+        return null; // or another value if that makes more sense....
+    }
 }
   
 
@@ -141,23 +115,21 @@ console.error(`Error fetching or analyzing movie data: ${error}`);
 }
 }
 
-// Placeholder for filtering logic based on genres, runtime, rating, and watched status
+// Filtering logic based on genres, runtime, rating, and watched status
 async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWatched) {
-  const allMovies = await fetchAllMovieDetails();
-  console.log('Filter Criteria:', { genre, maxRuntime, rating, excludeWatched });
-  console.log('All Movies:', allMovies);
+    const allMovies = await fetchAllMovieDetails();
+     console.log('Filter Criteria:', { genre, maxRuntime, rating, excludeWatched });
+    console.log('All Movies:', allMovies);
 
-  const filteredMovies = allMovies.filter(movie => {
-      const movieRuntime = processRuntime(movie.Runtime);
+    const filteredMovies = allMovies.filter(movie => {
+        const movieRuntime = processRuntime(movie.Runtime);
 
-      const meetsRuntimeCriteria = maxRuntime === 
-      'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
-      const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
-      const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
-              const meetsYearCriteria = year === 'all' || (movie.Year && movie.Year === year);
+        const meetsRuntimeCriteria = maxRuntime === 'all' || (movieRuntime && movieRuntime <= parseInt(maxRuntime));
+        const meetsGenreCriteria = genre === 'all' || (movie.Genre && movie.Genre.includes(genre));
+        const meetsRatingCriteria = rating === 'all' || (movie.Rated && movie.Rated === rating);
 
-      // Check for watched status
-      const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
+        // Check for watched status
+        const isNotWatched = excludeWatched ? !localStorage.getItem(movie.Title) : true;
 
         return meetsRuntimeCriteria && meetsGenreCriteria && meetsRatingCriteria && isNotWatched && meetsYearCriteria;
     });
@@ -170,8 +142,8 @@ async function filterMoviesBasedOnCriteria(genre, maxRuntime, rating, excludeWat
 // Function to select a group of movies based on criteria
 async function searchBtn(genre, runtime, rating, excludeWatched,year) {
     const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched,year);
-   // If no movies match the criteria, log a message and return null
-   if (filteredMovies.length === 0) {
+    // If no movies match the criteria, log a message and return null
+    if (filteredMovies.length === 0) {
     console.log("No movies match your criteria.");
     return null;
 }
@@ -185,107 +157,102 @@ return filteredMovies[randomIndex];
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
-  // Populate genres dropdown and analyze movies on page load
-  populateGenresDropdown();
-  populateRatingsDropdown();
-  analyzeMovies();
+    // Populate genres dropdown and analyze movies on page load
+    populateGenresDropdown();
+    populateRatingsDropdown();
+    analyzeMovies();
   
-  // Get references to the search and surprise buttons
-  const searchBtn = document.getElementById('search-btn');
-  const surpriseBtn = document.getElementById('surprise-btn');
+    // Get references to the search and surprise buttons
+    const searchBtn = document.getElementById('search-btn');
+    const surpriseBtn = document.getElementById('surprise-btn');
 
-  // Add click event listener for the search button
-  searchBtn.addEventListener('click', async function () {
-      // Get filter criteria values from user input
-      const genre = document.getElementById('genreFilter').value;
-      const runtime = document.getElementById('runtimeFilter').value;
-      const rating = document.getElementById('ratingFilter').value;
-      const excludeWatched = document.getElementById('excludeWatched').checked;
+    // Add click event listener for the search button
+    searchBtn.addEventListener('click', async function () {
+        // Get filter criteria values from user input
+        const genre = document.getElementById('genreFilter').value;
+        const runtime = document.getElementById('runtimeFilter').value;
+        const rating = document.getElementById('ratingFilter').value;
+        const excludeWatched = document.getElementById('excludeWatched').checked;
 
-      // Fetch and filter movies based on criteria
-      const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
+        // Fetch and filter movies based on criteria
+        const filteredMovies = await filterMoviesBasedOnCriteria(genre, runtime, rating, excludeWatched);
 
-      // Update the UI with the filtered movies
-      updateUI(filteredMovies);
-  });
+        // Update the UI with the filtered movies
+        updateUI(filteredMovies);
+    });
 
-  // event listener for the surprise button
-  surpriseBtn.addEventListener('click', async function () {
+    // event listener for the surprise button
+    surpriseBtn.addEventListener('click', async function () {
     
-      // Get filter criteria values from user input
-      const genre = document.getElementById('genreFilter').value;
-      const runtime = document.getElementById('runtimeFilter').value; // This is actually the maxRuntime
-      const rating = document.getElementById('ratingFilter').value;
-      const excludeWatched = document.getElementById('excludeWatched').checked;
+        // Get filter criteria values from user input
+        const genre = document.getElementById('genreFilter').value;
+        const runtime = document.getElementById('runtimeFilter').value; // This is actually the maxRuntime
+        const rating = document.getElementById('ratingFilter').value;
+        const excludeWatched = document.getElementById('excludeWatched').checked;
 
-      // Call the searchBtn function to fetch, filter, and select a movie
-      const selectedMovie = await searchBtn(genre, runtime, rating, excludeWatched, 4);
+        // Call the searchBtn function to fetch, filter, and select a movie
+        const selectedMovie = await searchBtn(genre, runtime, rating, excludeWatched, 4);
 
-      // If a movie is selected, update the UI with the selected movie
-      if (selectedMovie) {
-          updateUI([selectedMovie]);
-      }
-  });
+        // If a movie is selected, update the UI with the selected movie
+        if (selectedMovie) {
+            updateUI([selectedMovie]);
+        }
+    });
 });
 
 // Function to update the UI with movie data
 function updateUI(movies) {
-  const resultsContainer = document.getElementById('results-container');
+    const resultsContainer = document.getElementById('results-container');
 
-  // Check if the results container element exists
-  if (!resultsContainer) {
-      console.error("Results container element not found.");
-      return;
-  }
+    // Check if the results container element exists
+    if (!resultsContainer) {
+        console.error("Results container element not found.");
+        return;
+     }
 
-  // Clear the existing content in the results container
-  resultsContainer.innerHTML = '';
+    // Clear the existing content in the results container
+    resultsContainer.innerHTML = '';
 
-  // If no movies match the criteria, display a message
-  if (movies.length === 0) {
-      resultsContainer.innerHTML = 'No movies match your criteria.';
-      return;
-  }
+    // If no movies match the criteria, display a message
+    if (movies.length === 0) {
+        resultsContainer.innerHTML = 'No movies match your criteria. Please modify your search and try again.';
+        return;
+    }
 
-  // Display each movie title in the results container
-  movies.forEach(movie => {
-      const movieElement = document.createElement('div');
-      // Wrap the title in an anchor element
-      const titleLink = document.createElement('a');
-      titleLink.href = '#'; // You can set this to '#' or a placeholder link
-      titleLink.textContent = movie.Title;
+    // Display each movie title in the results container
+    movies.forEach(movie => {
+        const movieElement = document.createElement('div');
+        // Wrap the title in an anchor element
+        const titleLink = document.createElement('a');
+        titleLink.href = '#';
+        titleLink.textContent = movie.Title;
 
-      const watchedCheckbox = document.createElement('input');
-      watchedCheckbox.type = 'checkbox';
-      watchedCheckbox.id = `watched-${movie.Title.replace(/\s+/g, '-')}`;
-      watchedCheckbox.checked = localStorage.getItem(movie.Title) === 'watched';
-      watchedCheckbox.addEventListener('change', function () {
-        localStorage.setItem(movie.Title, watchedCheckbox.checked ? 'watched' : '');
-    });
+        const watchedCheckbox = document.createElement('input');
+        watchedCheckbox.type = 'checkbox';
+        watchedCheckbox.id = `watched-${movie.Title.replace(/\s+/g, '-')}`;
+        watchedCheckbox.checked = localStorage.getItem(movie.Title) === 'watched';
+        watchedCheckbox.addEventListener('change', function () {
+            localStorage.setItem(movie.Title, watchedCheckbox.checked ? 'watched' : '');
+        });
 
-      // Add click event listener to the anchor
-      titleLink.addEventListener('click', function (event) {
-          event.preventDefault(); // Prevent the default link behavior
-          handleTitleClick(movie);
-      });
+        // Add click event listener to the anchor
+        titleLink.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+            handleTitleClick(movie);
+        });
 
-      // Append the anchor to the movie element
+        // Append the anchor to the movie element
         movieElement.appendChild(titleLink);
         movieElement.appendChild(watchedCheckbox);
         // Append the movie element to the results container
         resultsContainer.appendChild(movieElement);
     });
 }
+
 async function populateRatingsDropdown() {
     try {
         const movies = await fetchAllMovieDetails();
         let ratings = new Set();
-
-        // Add a default "All Ratings" option
-        const allRatingsOption = document.createElement('option');
-        allRatingsOption.value = 'All Ratings';
-        allRatingsOption.textContent = 'All Ratings';
-        ratings.add('All Ratings');
 
         movies.forEach(movie => {
             if (movie && movie.Rated && movie.Rated !== 'N/A') {
@@ -308,9 +275,8 @@ async function populateRatingsDropdown() {
             const selectedRating = ratingDropdown.value;
             updateDisplayedMovies(selectedRating, movies);
         });
-
-        // Initially update displayed movies with "All Ratings"
         updateDisplayedMovies('all', movies);
+    
     } catch (error) {
         console.error(`Error populating ratings dropdown:`, error);
     }

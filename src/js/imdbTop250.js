@@ -269,8 +269,3 @@ const top250MovieTitles = [
     `Drishyam`,
     `Aladdin`
     ];
-
-
-
-
-    
