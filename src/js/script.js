@@ -35,7 +35,7 @@ function updateClickableUI(movies) {
 
         // Create a play button
         const videosContainer = document.getElementById('videos-container');
-videosContainer.innerHTML = ''; // Clear previous results
+        videosContainer.innerHTML = ''; // Clear previous results
         playButton.textContent = 'Play';
         playButton.classList.add('play-btn');
 
