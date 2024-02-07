@@ -145,6 +145,14 @@ async function searchBtn(genre, runtime, rating, excludeWatched,year) {
     // If no movies match the criteria, log a message and return null
     if (filteredMovies.length === 0) {
     console.log("No movies match your criteria.");
+
+    // Show the modal
+    document.getElementById('no-movies-modal').style.display = 'flex';
+
+    // When the user clicks on <span> (x), close the modal
+    document.querySelector('.close-button').onclick = function() {
+    document.getElementById('no-movies-modal').style.display = "none";
+    }
     return null;
 }
 
@@ -215,7 +223,15 @@ function updateUI(movies) {
 
     // If no movies match the criteria, display a message
     if (movies.length === 0) {
-        resultsContainer.innerHTML = 'No movies match your criteria. Please modify your search and try again.';
+        resultsContainer.innerHTML = '';
+
+        // Show the modal
+        document.getElementById('no-movies-modal').style.display = 'flex';
+
+        // When the user clicks on <span> (x), close the modal
+        document.querySelector('.close-button').onclick = function() {
+        document.getElementById('no-movies-modal').style.display = "none";
+        }
         return;
     }
 
